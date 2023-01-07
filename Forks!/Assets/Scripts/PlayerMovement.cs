@@ -7,9 +7,11 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;
 
     public Rigidbody2D rb;
+    public bool SewerText = false;
     Vector2 movement;
     public Camera mainCam;
     public List<string> usedRooms = new List<string>();
+    public List<string> inventory = new List<string>();
     public string currentRoom;
 
     // Update is called once per frame
@@ -17,7 +19,19 @@ public class PlayerMovement : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
-        //Debug.Log(currentRoom);
+        if (usedRooms.Contains(currentRoom) == false)
+        {
+            usedRooms.Add(currentRoom);
+        }
+        if (currentRoom == "Sewers")
+        {
+            SewerText = true;
+        }
+        else
+        {
+            SewerText = false;
+        }
+        Debug.Log(currentRoom);
     }
 
     void FixedUpdate()
@@ -39,13 +53,32 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentRoom = "Living Room";
             }
+            else if (transform.position.y > 5 && transform.position.y < 15){
+                currentRoom = "Garage";
+            }
+            else if (transform.position.y > -15 && transform.position.y < -5)
+            {
+                currentRoom = "Sewers";
+            }
         }
         else if (transform.position.x > 8.9f && transform.position.x < 26.7f)
         {
-            mainCam.transform.position = new Vector3(17.8f, mainCam.transform.position.y, mainCam.transform.position.z);
             if (transform.position.y > -5 && transform.position.y < 5)
             {
+                mainCam.transform.position = new Vector3(17.8f, mainCam.transform.position.y, mainCam.transform.position.z);
                 currentRoom = "Doorway";
+            }
+            else if (transform.position.y > -15 && transform.position.y < -5)
+            {
+                if (inventory.Contains("Shovel"))
+                {
+                    mainCam.transform.position = new Vector3(17.8f, mainCam.transform.position.y, mainCam.transform.position.z);
+                    currentRoom = "Tunnel";
+                }
+                else
+                {
+                    transform.position = new Vector3(0, -10, transform.position.z);
+                }
             }
         }
         else if (transform.position.x > 26.7f && transform.position.x < 44.5f)
@@ -55,6 +88,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentRoom = "Front Yard";
             }
+            else if (transform.position.y > -15 && transform.position.y < -5)
+            {
+                currentRoom = "Fork Factory";
+            }
+            else if (transform.position.y > -25 && transform.position.y < -15)
+            {
+                currentRoom = "Factory Road";
+            }
+            else if (transform.position.y > -35 && transform.position.y < -25)
+            {
+                currentRoom = "Metal Factory";
+            }
         }
         else if (transform.position.x > 44.5f && transform.position.x < 62.3f)
         {
@@ -62,6 +107,18 @@ public class PlayerMovement : MonoBehaviour
             if (transform.position.y > -5 && transform.position.y < 5)
             {
                 currentRoom = "Northern Road";
+            }
+            else if (transform.position.y > -15 && transform.position.y < -5)
+            {
+                currentRoom = "Middle Road";
+            }
+            else if (transform.position.y > -25 && transform.position.y < -15)
+            {
+                currentRoom = "Southern Road";
+            }
+            else if (transform.position.y > -35 && transform.position.y < -25)
+            {
+                currentRoom = "Store";
             }
         }
 
@@ -85,12 +142,16 @@ public class PlayerMovement : MonoBehaviour
         {
             mainCam.transform.position = new Vector3(mainCam.transform.position.x, -30, mainCam.transform.position.z);
         }
+        else if (transform.position.y < -35 && transform.position.y > -45)
+        {
+            mainCam.transform.position = new Vector3(mainCam.transform.position.x, -40, mainCam.transform.position.z);
+        }
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Sewer")
         {
-            Debug.Log("You entered the sewers!");
+            transform.position = new Vector3(0, -10, 0);
         }
     }
 }
