@@ -5,10 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-
+    public enum playerState
+    {
+        Moving,
+        Still,
+        Slowing
+    }
+    public playerState State;
     public Rigidbody2D rb;
     public bool SewerText = false;
-    Vector2 movement;
+    private Vector2 movement;
     public Camera mainCam;
     public List<string> usedRooms = new List<string>();
     public List<string> inventory = new List<string>();
@@ -31,7 +37,20 @@ public class PlayerMovement : MonoBehaviour
         {
             SewerText = false;
         }
-        Debug.Log(currentRoom);
+        
+        if (movement == new Vector2(0, 0) && (rb.velocity.x > 0 || rb.velocity.x < 0 || rb.velocity.y > 0 || rb.velocity.y < 0))
+        {
+            State = playerState.Slowing;
+        }
+        else if (rb.velocity == new Vector2(0, 0))
+        {
+            State = playerState.Still;
+        }
+        else
+        {
+            State = playerState.Moving;
+        }
+        //Debug.Log(currentRoom);
     }
 
     void FixedUpdate()
