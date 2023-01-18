@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
         Slowing
     }
     public playerState State;
+    public float torque = 5f;
     public Rigidbody2D rb;
     public bool SewerText = false;
     private Vector2 movement;
@@ -55,7 +56,9 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        float turn = Input.GetAxisRaw("Horizontal");
         rb.AddForce(movement * moveSpeed);
+        rb.AddTorque(transform.up * torque * turn);
 
         if (transform.position.x > -26.7f && transform.position.x < -8.9f)
         {
@@ -72,7 +75,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentRoom = "Living Room";
             }
-            else if (transform.position.y > 5 && transform.position.y < 15){
+            else if (transform.position.y > 5 && transform.position.y < 15)
+            {
                 currentRoom = "Garage";
             }
             else if (transform.position.y > -15 && transform.position.y < -5)
