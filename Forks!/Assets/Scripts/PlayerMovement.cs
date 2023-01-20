@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 8f;
     public enum playerState
     {
         Moving,
@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
         Slowing
     }
     public playerState State;
-    public float torque = 5f;
+    public float torque = 1f;
     public Rigidbody2D rb;
     public bool SewerText = false;
     private Vector2 movement;
@@ -57,8 +57,9 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         float turn = Input.GetAxisRaw("Horizontal");
+        turn = turn - turn * 2;
         rb.AddForce(movement * moveSpeed);
-        rb.AddTorque(transform.up * torque * turn);
+        rb.AddTorque(torque * turn);
 
         if (transform.position.x > -26.7f && transform.position.x < -8.9f)
         {

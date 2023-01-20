@@ -1350,13 +1350,13 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 0.1
   m_LinearDrag: 10
-  m_AngularDrag: 0.05
+  m_AngularDrag: 5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!114 &312198936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1371,6 +1371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   State: 0
+  torque: 1
   rb: {fileID: 312198935}
   SewerText: 0
   mainCam: {fileID: 651472605}
