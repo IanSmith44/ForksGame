@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -176,6 +177,10 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Sewer")
         {
             transform.position = new Vector3(0, -10, 0);
+        }
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            SceneManager.LoadScene(1);
         }
     }
 }
