@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Sewer
   - Enemy
+  - Item
   layers:
   - Default
   - TransparentFX

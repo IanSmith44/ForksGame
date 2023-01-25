@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         {
             SewerText = false;
         }
-        
+
         if (movement == new Vector2(0, 0) && (rb.velocity.x > 0 || rb.velocity.x < 0 || rb.velocity.y > 0 || rb.velocity.y < 0))
         {
             State = playerState.Slowing;
@@ -181,6 +181,11 @@ public class PlayerMovement : MonoBehaviour
         else if (collision.gameObject.tag == "Enemy")
         {
             SceneManager.LoadScene(1);
+        }
+        else if (collision.gameObject.tag == "Item")
+        {
+            inventory.Add(collision.gameObject.name);
+            Destroy(collision.gameObject);
         }
     }
 }
