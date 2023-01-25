@@ -1510,6 +1510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8bfbb58e8bc6f146b9f79c5f49b0d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyScript: {fileID: 1828038738}
   moveSpeed: 8
   State: 0
   torque: 1
@@ -6047,7 +6048,7 @@ GameObject:
   - component: {fileID: 1828038740}
   m_Layer: 0
   m_Name: spoon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6159,7 +6160,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 3
+  m_Constraints: 0
 --- !u!60 &1828038740
 PolygonCollider2D:
   m_ObjectHideFlags: 0
